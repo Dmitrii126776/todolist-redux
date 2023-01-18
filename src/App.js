@@ -1,25 +1,22 @@
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import {connect} from "react-redux";
+import TaskList from "./TaskList";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App(props) {
+    const {header, version} = props;
+
+    return (
+        <div className="App">
+            <h1>{header}</h1>
+            <h3>version: {version}</h3>
+            <TaskList/>
+        </div>
+    );
 }
 
-export default App;
+const mapStateToProps = state => ({
+    header: state.appHeader,
+    version: state.version,
+})
+export default connect(mapStateToProps)(App);
