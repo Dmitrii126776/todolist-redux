@@ -10,10 +10,16 @@ const CreateTask = (props) => {
         setInput('');
     }
     return (
-        <div>
-            <input value={input} onChange={e => setInput(e.target.value)}
+        <div style={{
+            display: 'flex', alignItems: "center",
+            justifyContent: "center"
+        }}>
+            <button className='input-button btn btn-outline-secondary'
+                    onClick={CreateTask} disabled={input === ''}>Click
+            </button>
+            <input className='form-control'
+                   value={input} onChange={e => setInput(e.target.value)}
                    type='text' placeholder='add new task ...'/>
-            <button onClick={CreateTask} disabled={input === ''}>Add Task</button>
         </div>
     );
 };

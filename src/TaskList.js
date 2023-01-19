@@ -7,9 +7,12 @@ const TaskList = (props) => {
     const {tasks} = props
     return (
         <div>
-            <CreateTask/>
-            <ul style={{listStyleType: 'none'}}>
+            <div className="nav-menu">
+                <CreateTask/>
+            </div>
+            <ul className='list-group' style={{listStyleType: 'none'}}>
                 {tasks.map(el => (<Task
+                    tasks={tasks}
                     task={el}
                     key={el.id}
                 />))}
