@@ -2,9 +2,9 @@ import {v4 as uuidv4} from 'uuid';
 
 const initialState = {
     todolist: [
-        {id: uuidv4(), title: 'Learn Redux', done: false},
+        {id: uuidv4(), title: 'Improve Redux', done: false},
         {id: uuidv4(), title: 'Learn React', done: false},
-        {id: uuidv4(), title: 'Learn HTML', done: false},
+        {id: uuidv4(), title: 'Improve HTML', done: false},
         {id: uuidv4(), title: 'Learn Express', done: false},
     ],
     appHeader: 'Todo List',
@@ -35,31 +35,25 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 todolist: doneList,
             };
-        case 'DOWN_TASK':
-            const indexDown = state.todolist.findIndex(el => el.id === action.payload)
+        case 'MOVE_TASK':
+            const currentIndex = state.todolist.findIndex(el => el.id === action.payload.id)
+            const currentList = [...state.todolist]
+            const value = action.payload.direction === 'up' ? -1 : 1;
+            [currentList[currentIndex], currentList[currentIndex + value]] = [currentList[currentIndex + value], currentList[currentIndex]]
             return {
                 ...state,
-                todolist: [
-                    ...state.todolist.slice(0, indexDown),
-                    state.todolist[indexDown + 1],
-                    state.todolist[indexDown],
-                    ...state.todolist.slice(indexDown + 2)
-                ]
-            };
+                todolist: currentList,
+            }
 
-        case 'UP_TASK':
-            if (state.todolist.findIndex(el => el.id === action.payload) > 0) {
-                const indexUp = state.todolist.findIndex(el => el.id === action.payload)
-                return {
-                    ...state,
-                    todolist: [
-                        ...state.todolist.slice(0, indexUp - 1),
-                        state.todolist[indexUp],
-                        state.todolist[indexUp - 1],
-                        ...state.todolist.slice(indexUp + 1)
-                    ]
-                };
-            } else return state;
+        case 'EDIT_TASK':
+            const editList = state.todolist.map(el => el.id === action.payload.id ? {
+                ...el,
+                title: action.payload.inputValue
+            } : el)
+            return {
+                ...state,
+                todolist: editList,
+            };
 
         default:
             return state;

@@ -11,10 +11,11 @@ const TaskList = (props) => {
                 <CreateTask/>
             </div>
             <ul className='list-group' style={{listStyleType: 'none'}}>
-                {tasks.map(el => (<Task
+                {tasks.map((el, i) => (<Task
                     tasks={tasks}
                     task={el}
                     key={el.id}
+                    index={i}
                 />))}
             </ul>
         </div>

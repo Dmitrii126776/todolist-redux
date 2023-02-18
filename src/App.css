@@ -2,6 +2,17 @@
     text-align: center;
 }
 
+.list-group-item {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    white-space: nowrap;
+}
+
 .input-button {
     margin: 5px;
 }
